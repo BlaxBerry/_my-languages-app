@@ -1,0 +1,14 @@
+*.html 
+
+dist
+node_modules/
+pakage.json
+yarn.lock
+
+
+.cache
+.vscode/
+.husky/
+.github/
+
+tsconfig.json

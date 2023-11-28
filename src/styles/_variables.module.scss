@@ -1,0 +1,9 @@
+@import "./variables";
+
+:export {
+  /* layout size */
+  root_layout_header_height: $root-layout-header-height;
+  root_layout_footer_height: $root-layout-footer-height;
+  root_layout_main_height: $root-layout-main-height;
+  root_layout_aside_with: $root-layout-aside-with;
+}
