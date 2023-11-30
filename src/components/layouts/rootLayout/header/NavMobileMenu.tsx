@@ -77,7 +77,7 @@ function NavMobileMenu() {
 
         <MenuList sx={{ p: 2, pt: 0 }}>
           {CLIENT_NAVIGATION.map(({ label, path, icon }) => {
-            const isActive = pathname.startsWith(path);
+            const isActive = pathname.endsWith(path);
             return (
               <MenuItem
                 key={label}

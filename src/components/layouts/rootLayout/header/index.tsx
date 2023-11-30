@@ -12,7 +12,7 @@ import NavMobileMenu from "./NavMobileMenu";
 const HEADER_HEIGHT = styles.root_layout_header_height;
 const ASIDE_WITH = styles.root_layout_aside_with;
 
-function ClientLayoutHeader() {
+function RootLayoutHeader() {
   return (
     <AppBar
       position="sticky"
@@ -37,10 +37,8 @@ function ClientLayoutHeader() {
             width: ASIDE_WITH,
             textAlign: "center",
           }}
-          display="flex"
-          alignItems="center"
         >
-          <Link to={"/"}>Dashboard</Link>
+          <Link to={"/"}>Languages App</Link>
         </Typography>
 
         {/* PC screen menu */}
@@ -55,5 +53,5 @@ function ClientLayoutHeader() {
   );
 }
 
-const ClientLayoutHeaderMemo = memo(ClientLayoutHeader);
-export default ClientLayoutHeaderMemo;
+const RootLayoutHeaderMemo = memo(RootLayoutHeader);
+export default RootLayoutHeaderMemo;

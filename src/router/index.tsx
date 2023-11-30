@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Root from "@/pages/root";
-import List, { listLoader } from "@/pages/list";
+import Topics, { topicsLoader } from "@/pages/topics";
+import Topic, { topicLoader } from "@/pages/topics/[id]";
 import About from "@/pages/about";
 import Login, { loginLoader } from "@/pages/login";
 import Profile, { profileLoader } from "@/pages/profile";
@@ -21,13 +22,18 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <List />,
-        loader: listLoader,
+        element: <Topics />,
+        loader: topicsLoader,
       },
       {
-        path: "list",
-        element: <List />,
-        loader: listLoader,
+        path: "topics",
+        element: <Topics />,
+        loader: topicsLoader,
+      },
+      {
+        path: "topics/:id",
+        element: <Topic />,
+        loader: topicLoader,
       },
       {
         path: "about",

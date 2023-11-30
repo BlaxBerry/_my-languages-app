@@ -6,7 +6,7 @@ import styles from "@/styles/_variables.module.scss";
 
 const FOOTER_HEIGHT = styles.root_layout_footer_height;
 
-function ClientLayoutFooter() {
+function RootLayoutFooter() {
   return (
     <Typography
       component="footer"
@@ -29,5 +29,5 @@ function ClientLayoutFooter() {
   );
 }
 
-const ClientLayoutFooterMemo = memo(ClientLayoutFooter);
-export default ClientLayoutFooterMemo;
+const RootLayoutFooterMemo = memo(RootLayoutFooter);
+export default RootLayoutFooterMemo;

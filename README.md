@@ -1,8 +1,8 @@
-#
+# Personal Languages App
 
-Personal practice
+Personal practice, SPA based on react.
 
-developing...
+Developing...
 
 ## Tech Stacks
 
@@ -27,6 +27,8 @@ developing...
     |- components
         |- common
         |- layouts
+            |- rootLayout
+            |- [...]pageLayout
     |- libs
     |- pages
         |- [...]
@@ -34,11 +36,25 @@ developing...
         |- root.tsx
     |- router
     |- styles
+    |- types
     |- utils
         |- constants
+        |- helpers
         |- hooks
         |- stores
         |- tools
 |- index.html
 |- ...
 ```
+
+## PathNames & Pages
+
+| pathname                            | description                                                           |
+| ----------------------------------- | --------------------------------------------------------------------- |
+| `/about`                            | About this app                                                        |
+| `/login`                            | Login                                                                 |
+| `/login?redirect_from=[pathname]`   | ( login then navigate to ( go back to ) `redirect_from` )             |
+| `/profile`                          | User Profile                                                          |
+| `/topics`                           | Popular Topics Note List                                              |
+| `/topics/[id]`                      | Specific Topic Note                                                   |
+| `/topics/[id]?index=[contentIndex]` | Specific Topic Note's Specific Content Note ID ( index start from 1 ) |

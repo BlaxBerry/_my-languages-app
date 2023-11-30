@@ -44,3 +44,4 @@ export const AxiosInstance = getAxiosInstance({
 
 /* for others (no need request headers ) */
 export const AxiosInstanceOthers = getAxiosInstance({});
+// example: AxiosInstanceOthers.get( "https://api.github.com/users/BlaxBerry/repos");

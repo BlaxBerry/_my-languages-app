@@ -4,14 +4,14 @@ import styles from "@/styles/_variables.module.scss";
 
 const MAIN_HEIGHT = styles.root_layout_main_height;
 
-function ClientLayoutMain(props: { children: ReactNode }) {
+function RootLayoutMain(props: { children: ReactNode }) {
   return (
     <Container
       component="main"
       maxWidth="lg"
       sx={{
-        height: MAIN_HEIGHT,
-        p: 2,
+        minHeight: MAIN_HEIGHT,
+        py: 2,
       }}
     >
       {props.children}
@@ -19,5 +19,5 @@ function ClientLayoutMain(props: { children: ReactNode }) {
   );
 }
 
-const ClientLayoutMainMemo = memo(ClientLayoutMain);
-export default ClientLayoutMainMemo;
+const RootLayoutMainMemo = memo(RootLayoutMain);
+export default RootLayoutMainMemo;
