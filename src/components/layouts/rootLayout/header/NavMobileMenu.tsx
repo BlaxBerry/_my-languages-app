@@ -70,7 +70,7 @@ function NavMobileMenu() {
             justifyContent="flex-end"
             sx={{ mb: 1 }}
           >
-            Menu
+            Pages
           </Typography>
           <Divider />
         </Box>

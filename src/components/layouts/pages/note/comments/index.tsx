@@ -1,6 +1,5 @@
 import { memo, useCallback, useMemo, useState } from "react";
 import dayjs from "dayjs";
-import type { TopicCommentsDoc } from "@/types/db/topics";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
@@ -8,6 +7,7 @@ import Button from "@mui/material/Button";
 import SortIcon from "@mui/icons-material/Sort";
 import { MOCK_AVATAR_URL } from "@/__mocks__";
 import { getDiffDaysAgo } from "@/utils/helpers";
+import type { NoteCommentDoc } from "@/types/db/notes";
 
 type SortOrderBy = "asc" | "desc";
 const SORT_ORDER_BY: Record<Uppercase<SortOrderBy>, SortOrderBy> = {
@@ -15,7 +15,7 @@ const SORT_ORDER_BY: Record<Uppercase<SortOrderBy>, SortOrderBy> = {
   DESC: "desc",
 } as const;
 
-function TopicComments(props: { topicComments: TopicCommentsDoc }) {
+function NoteComments(props: { noteComments: Array<NoteCommentDoc> }) {
   /** 获取评论创建日期与当前日期的差 (?days ago) */
   const getDiffCreateAtFromNow = useCallback((dateString: string) => {
     const diffDaysAgo = getDiffDaysAgo(dateString);
@@ -37,20 +37,24 @@ function TopicComments(props: { topicComments: TopicCommentsDoc }) {
    * - desc 降序 (oldest first)
    */
   const topicCommentsSortedByCreateAt = useMemo(() => {
-    return props.topicComments?.sort((a, b) => {
+    return props.noteComments?.sort((a, b) => {
       const aUnix = dayjs(b.createAt).unix();
       const bUnix = dayjs(a.createAt).unix();
       if (sortOrderBy === SORT_ORDER_BY.ASC) return aUnix - bUnix;
       else return bUnix - aUnix;
     });
-  }, [props.topicComments, sortOrderBy]);
+  }, [props.noteComments, sortOrderBy]);
 
   return (
     <Box>
       <Box display="flex" alignItems="center" sx={{ py: 1 }}>
-        <Typography>All {props.topicComments.length} Comments</Typography>
+        <Typography>
+          {!props.noteComments.length
+            ? `暂无评论`
+            : `All ${props.noteComments.length} Comments`}
+        </Typography>
 
-        {props.topicComments?.length > 0 && (
+        {props.noteComments?.length > 0 && (
           <Box display="flex" alignItems="center">
             <SortIcon sx={{ ml: 4 }} />
             <Button onClick={toggleSortOrderBy}>
@@ -84,5 +88,5 @@ function TopicComments(props: { topicComments: TopicCommentsDoc }) {
   );
 }
 
-const TopicCommentsMemo = memo(TopicComments);
-export default TopicCommentsMemo;
+const NoteCommentsMemo = memo(NoteComments);
+export default NoteCommentsMemo;

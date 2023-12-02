@@ -6,19 +6,27 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import type { TopicsDoc } from "@/types/db/topics";
 import Grid from "@mui/material/Grid";
+import type { NoteDoc } from "@/types/db/notes";
 
-function PageLayoutTopics(props: { topics: TopicsDoc }) {
+function PageLayoutTopics(props: { notes: Array<NoteDoc> }) {
   const navigate = useNavigate();
 
   return (
     <Box>
+      <Typography variant="h4" fontWeight={700} textAlign="center">
+        Hot Topics
+      </Typography>
+
       <Grid container spacing={2}>
-        {props.topics.map((doc) => (
+        {props.notes.map((doc) => (
           <Grid item key={doc.id} xs={12} sm={6} md={4} lg={3}>
             <Card>
-              <CardActionArea onClick={() => navigate(`/topics/${doc.id}`)}>
+              <CardActionArea
+                onClick={() =>
+                  navigate(`/topics/${doc.id}?authorUID=null&index=1`)
+                }
+              >
                 <CardMedia
                   component="img"
                   height="100"

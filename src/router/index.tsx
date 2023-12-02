@@ -6,34 +6,23 @@ import Topic, { topicLoader } from "@/pages/topics/[id]";
 import About from "@/pages/about";
 import Login, { loginLoader } from "@/pages/login";
 import Profile, { profileLoader } from "@/pages/profile";
+import Note, { noteLoader } from "@/pages/notes/[id]";
 import Community from "@/pages/community";
 import CommunityList from "@/pages/community/list";
 import CommunityLanguage from "@/pages/community/[language]";
-import Notes from "@/pages/notes";
-import ErrorUnknown from "@/pages/errors/unknown";
+import ErrorRoute from "@/pages/errors/errorRoute";
 import Error404 from "@/pages/errors/404";
-import Error500 from "@/pages/errors/500";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorUnknown />,
+    errorElement: <ErrorRoute />,
     children: [
       {
         index: true,
         element: <Topics />,
         loader: topicsLoader,
-      },
-      {
-        path: "topics",
-        element: <Topics />,
-        loader: topicsLoader,
-      },
-      {
-        path: "topics/:id",
-        element: <Topic />,
-        loader: topicLoader,
       },
       {
         path: "about",
@@ -44,12 +33,34 @@ export const router = createBrowserRouter([
         element: <Login />,
         loader: loginLoader,
       },
+
+      // topic
+      {
+        path: "topics",
+        element: <Topics />,
+        loader: topicsLoader,
+      },
+      {
+        path: "topics/:noteID",
+        element: <Topic />,
+        loader: topicLoader,
+      },
+
+      // profile
       {
         path: "profile",
         element: <Profile />,
         loader: profileLoader,
       },
 
+      // note
+      {
+        path: "notes/:noteID",
+        element: <Note />,
+        loader: noteLoader,
+      },
+
+      // community
       {
         path: "community",
         element: <Community />,
@@ -70,17 +81,8 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "notes",
-        element: <Notes />,
-      },
-
-      {
         path: "404",
         element: <Error404 />,
-      },
-      {
-        path: "500",
-        element: <Error500 />,
       },
       {
         path: "*",

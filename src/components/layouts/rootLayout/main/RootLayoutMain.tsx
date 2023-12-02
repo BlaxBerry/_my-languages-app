@@ -11,7 +11,6 @@ function RootLayoutMain(props: { children: ReactNode }) {
       maxWidth="lg"
       sx={{
         minHeight: MAIN_HEIGHT,
-        py: 2,
       }}
     >
       {props.children}

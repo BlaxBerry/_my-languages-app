@@ -1,35 +1,42 @@
 import { Suspense } from "react";
 import {
-  Await,
+  type LoaderFunction,
   defer,
   useLoaderData,
-  type LoaderFunction,
+  Await,
 } from "react-router-dom";
 import type { NoteCommentDoc, NoteContentDoc, NoteDoc } from "@/types/db/notes";
-import { getAllDocs } from "@/libs/firebase/firestore";
 import PageLayoutNote from "@/components/layouts/pages/note";
+import { getAllDocs } from "@/libs/firebase/firestore";
 import { ErrorLayout, LoadingLayout } from "@/components/layouts";
 
 type LoaderData = {
-  res: Promise<[Array<NoteDoc>, Array<NoteContentDoc>, Array<NoteCommentDoc>]>;
+  res: Promise<[NoteDoc, Array<NoteContentDoc>, Array<NoteCommentDoc>]>;
 };
 
 /* eslint-disable-next-line react-refresh/only-export-components */
-export const topicLoader: LoaderFunction = async ({ params }) => {
-  const topicNoteID = params.noteID;
+export const noteLoader: LoaderFunction = async ({ request, params }) => {
+  const url = new URL(request.url);
+  const authorUID = url.searchParams.get("authorUID");
+  const noteID = params.noteID;
+
   const res = Promise.all([
-    getAllDocs<NoteDoc>("topics").then((res) =>
-      res.find((note) => note.id === topicNoteID),
+    getAllDocs<NoteDoc>(`users/${authorUID}/notes`).then((res) =>
+      res.find((note) => note.id === noteID),
     ),
-    getAllDocs<Array<NoteContentDoc>>(`topics/${topicNoteID}/contents`),
-    getAllDocs<Array<NoteCommentDoc>>(`topics/${topicNoteID}/comments`),
+    getAllDocs<Array<NoteContentDoc>>(
+      `users/${authorUID}/notes/${noteID}/contents`,
+    ),
+    getAllDocs<Array<NoteCommentDoc>>(
+      `users/${authorUID}/notes/${noteID}/comments`,
+    ),
   ]);
   return defer({
     res,
   });
 };
 
-export default function TopicNotePage() {
+export default function NoteIndex() {
   const { res } = useLoaderData() as LoaderData;
 
   return (
@@ -37,7 +44,7 @@ export default function TopicNotePage() {
       <Await
         resolve={res}
         errorElement={
-          <ErrorLayout message={`topic/[id] route data loading error`} />
+          <ErrorLayout message={`notes/[id] route data loading error`} />
         }
       >
         {(res: [NoteDoc, Array<NoteContentDoc>, Array<NoteCommentDoc>]) => (

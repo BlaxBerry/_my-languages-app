@@ -3,7 +3,6 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 export const COOKIE_NAMES = {
-  FIREBASE_AUTH_TOKEN: "blaxberry-dashboard-auth-token",
   ACCESS_TOKEN: "blaxberry-dashboard-access-token",
 };
 

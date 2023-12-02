@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { type User, onAuthStateChanged } from "firebase/auth";
 import { RootLayout } from "@/components/layouts";
 import { auth } from "@/libs/firebase";
-import { COOKIE_NAMES, removeCookie } from "@/utils/tools";
+import { COOKIE_NAMES, getCookie, removeCookie } from "@/utils/tools";
 
 export default function HomeIndex() {
   const navigate = useNavigate();
@@ -17,7 +17,8 @@ export default function HomeIndex() {
       }
 
       // 正在登陆or已经登陆使用中的用户突然被超级管理员远端销户了
-      if (user === null) {
+      const accessToken = getCookie(COOKIE_NAMES.ACCESS_TOKEN);
+      if (accessToken && user === null) {
         removeCookie(COOKIE_NAMES.ACCESS_TOKEN);
         return navigate(`/login`);
       }

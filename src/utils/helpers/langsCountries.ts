@@ -21,8 +21,8 @@ export const LanguageToCountry = (language: Language) => {
     // case "de":
     //   return "germany";
 
-    // case "it":
-    //   return "italy";
+    case "it":
+      return "italy";
 
     // case "ru":
     //   return "russia";

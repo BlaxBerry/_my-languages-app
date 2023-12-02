@@ -1,13 +1,20 @@
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { EmptyLayout } from "@/components/layouts";
 
 export default function Error404Index() {
   return (
-    <div>
-      error 404
-      <Button>
-        <Link to="/">Back to Home</Link>
-      </Button>
-    </div>
+    <EmptyLayout
+      redirectPath="/"
+      redirectButtonMessage="Back to Top"
+      content={
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Typography variant="h4" fontWeight={700} color="black">
+            404
+          </Typography>
+          <Typography variant="body1">Page Not Found...</Typography>
+        </Box>
+      }
+    />
   );
 }

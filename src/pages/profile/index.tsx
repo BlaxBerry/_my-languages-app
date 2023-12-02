@@ -16,7 +16,11 @@ import {
   removeCookie,
   decodeJWT,
 } from "@/utils/tools";
-import { PageLayoutProfile } from "@/components/layouts";
+import {
+  ErrorLayout,
+  LoadingLayout,
+  PageLayoutProfile,
+} from "@/components/layouts";
 import { getAllDocs } from "@/libs/firebase/firestore";
 import type { NoteDoc } from "@/types/db/notes";
 
@@ -32,11 +36,9 @@ export const profileLoader: LoaderFunction = async ({ request }) => {
     return redirect(`/login?redirect_from=${pathname}`);
   }
   const jwtDecoded = decodeJWT(accessToken);
-  const uid = jwtDecoded.payload.uid;
-  const res = Promise.all([
-    getAllDocs(`users/${uid}/notes`),
-    getAllDocs(`users/${uid}/notes`),
-  ]);
+  const uid = jwtDecoded.payload.user_id;
+
+  const res = Promise.all([getAllDocs(`users/${uid}/notes`)]);
   return defer({
     res,
   });
@@ -76,9 +78,16 @@ export default function ProfileIndex() {
   );
 
   return (
-    <Suspense fallback={<>Loading...</>}>
-      <Await resolve={res} errorElement={<>Error loading package location!</>}>
-        {(res) => <PageLayoutProfile {...{ user, logout, update, res }} />}
+    <Suspense fallback={<LoadingLayout message="Fetching..." />}>
+      <Await
+        resolve={res}
+        errorElement={
+          <ErrorLayout message={`profile route data loading error`} />
+        }
+      >
+        {(res: [Array<NoteDoc>]) => (
+          <PageLayoutProfile {...{ user, logout, update }} userNotes={res[0]} />
+        )}
       </Await>
     </Suspense>
   );

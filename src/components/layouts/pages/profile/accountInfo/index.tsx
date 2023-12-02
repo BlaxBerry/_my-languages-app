@@ -2,16 +2,12 @@ import { memo, useMemo } from "react";
 import dayjs from "dayjs";
 import type { User } from "firebase/auth";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
-import Avatar from "@mui/material/Avatar";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import DoneIcon from "@mui/icons-material/Done";
-import CloseIcon from "@mui/icons-material/Close";
 import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 import { getDiffDaysAgo } from "@/utils/helpers";
+import { ProfileAvatarImg } from "@/components/common";
 
 function ProfileAccountInfo(props: {
   user: User | null;
@@ -44,42 +40,7 @@ function ProfileAccountInfo(props: {
             md: "flex-end",
           }}
         >
-          <Badge
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right",
-            }}
-            overlap="circular"
-            color={user?.emailVerified ? "success" : "error"}
-            sx={{
-              width: 100,
-              height: 100,
-              "& .MuiBadge-badge": { p: 0 },
-            }}
-            badgeContent={
-              <Tooltip
-                placement="right"
-                arrow
-                title={user?.emailVerified ? "邮箱已验证" : "邮箱未验证"}
-              >
-                {user?.emailVerified ? (
-                  <DoneIcon sx={{ width: 15, height: 15 }} />
-                ) : (
-                  <CloseIcon sx={{ width: 15, height: 15 }} />
-                )}
-              </Tooltip>
-            }
-          >
-            <Avatar
-              src={user?.photoURL ?? ""}
-              sx={{
-                width: 100,
-                height: 100,
-                border: 2,
-                borderColor: user?.emailVerified ? "green" : "red",
-              }}
-            />
-          </Badge>
+          <ProfileAvatarImg user={user} />
         </Grid>
         {/* 2. name & uid & email &  meteData */}
         <Grid
