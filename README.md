@@ -25,10 +25,10 @@ Developing...
     |- __tests__
     |- assets
     |- components
+    |- layouts
         |- common
-        |- layouts
-            |- rootLayout
-            |- [...]pageLayout
+        |- rootLayout
+        |- pagesLayout
     |- libs
     |- pages
         |- [...]

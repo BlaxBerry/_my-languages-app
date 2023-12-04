@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import SortIcon from "@mui/icons-material/Sort";
 import { MOCK_AVATAR_URL } from "@/__mocks__";
 import { getDiffDaysAgo } from "@/utils/helpers";
-import type { NoteCommentDoc } from "@/types/db/notes";
+import type { UserNoteCommentDoc } from "@/types/db/notes";
 
 type SortOrderBy = "asc" | "desc";
 const SORT_ORDER_BY: Record<Uppercase<SortOrderBy>, SortOrderBy> = {
@@ -15,7 +15,7 @@ const SORT_ORDER_BY: Record<Uppercase<SortOrderBy>, SortOrderBy> = {
   DESC: "desc",
 } as const;
 
-function NoteComments(props: { noteComments: Array<NoteCommentDoc> }) {
+function NoteComments(props: { noteComments: Array<UserNoteCommentDoc> }) {
   /** 获取评论创建日期与当前日期的差 (?days ago) */
   const getDiffCreateAtFromNow = useCallback((dateString: string) => {
     const diffDaysAgo = getDiffDaysAgo(dateString);

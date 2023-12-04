@@ -25,3 +25,49 @@ export const CLIENT_NAVIGATION = [
     icon: <InfoIcon fontSize="small" />,
   },
 ];
+
+export const MARKDOWN_EDITOR_DEFAULT_VALUE = `
+Sample Text Content
+
+# level1
+## level2
+### level3
+#### level4
+##### level5
+###### level6
+
+#
+---
+***
+
+aaa
+bbb
+😀
+&#x1f600;
+
+**xxxxx**<br/>
+*xxxxx*<br/>
+~xxxxx~
+> xxx
+
+[Link](https://static1.dualshockersimages.com/wordpress/wp-content/uploads/2020/11/Genshin-Impact-Avatars.jpg)
+
+**[Link](https://static1.dualshockersimages.com/wordpress/wp-content/uploads/2020/11/Genshin-Impact-Avatars.jpg)**
+
+![](https://static1.dualshockersimages.com/wordpress/wp-content/uploads/2020/11/Genshin-Impact-Avatars.jpg)
+
+
+- [x] xx
+- [ ] xxx
+- aa
+- bb
+  - cc
+  - dd
+
+|a |b |
+|--|--|
+|x |x |
+|x |x |
+|x |x |
+
+`;

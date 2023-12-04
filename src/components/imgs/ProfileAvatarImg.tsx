@@ -38,6 +38,7 @@ function ProfileAvatarImg(props: { user: User | null }) {
     >
       <Avatar
         src={user?.photoURL ?? ""}
+        alt=""
         sx={{
           width: 100,
           height: 100,

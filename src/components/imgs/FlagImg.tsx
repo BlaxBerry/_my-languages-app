@@ -13,7 +13,11 @@ function FlagImg(props: { language: Language; sx?: SxProps }) {
   }, []);
 
   return (
-    <Avatar src={getSVGURI(props.language)} sx={{ ...props.sx }}>
+    <Avatar
+      src={getSVGURI(props.language)}
+      alt={props.language}
+      sx={{ ...props.sx }}
+    >
       <LanguageIcon />
     </Avatar>
   );

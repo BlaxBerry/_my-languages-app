@@ -1,5 +1,5 @@
 import { useRouteError } from "react-router-dom";
-import { ErrorLayout } from "@/components/layouts";
+import { ErrorLayout } from "@/layouts/common";
 
 export default function ErrorRouteIndex() {
   const error = useRouteError();

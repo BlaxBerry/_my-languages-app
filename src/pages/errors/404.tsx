@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { EmptyLayout } from "@/components/layouts";
+import { EmptyLayout } from "@/layouts/common";
 
 export default function Error404Index() {
   return (

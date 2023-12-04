@@ -13,12 +13,12 @@ import ProfileAccountInfo from "./accountInfo";
 import ProfileUpdateDrawer, {
   type ProfileUpdateDrawerRef,
 } from "./updateDrawer";
-import type { NoteDoc } from "@/types/db/notes";
-import { FlagImg } from "@/components/common";
+import { FlagImg } from "@/components";
+import type { UserNoteDoc } from "@/types/db/notes";
 
 function PageLayoutProfile(props: {
   user: User | null;
-  userNotes: Array<NoteDoc>;
+  userNotes: Array<UserNoteDoc>;
   logout: () => void;
   update: (params: { displayName: string; photoURL: string }) => void;
 }) {
@@ -64,8 +64,8 @@ function PageLayoutProfile(props: {
             </Badge>
             <Grid container spacing={2} sx={{ pt: 2 }}>
               {userNotes?.map((note) => (
-                <Grid item key={note.id} xs={12} sm={6} md={4} lg={4}>
-                  <Link to={`/notes/${note.id}?authorUID=${user?.uid}&index=1`}>
+                <Grid item key={note.noteID} xs={12} sm={6} md={4} lg={4}>
+                  <Link to={`/notes/${note.noteID}?authorUID=${user?.uid}`}>
                     <Card>
                       <CardActionArea>
                         <CardContent

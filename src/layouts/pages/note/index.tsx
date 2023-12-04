@@ -1,20 +1,19 @@
 import { memo } from "react";
-import type { NoteDoc, NoteCommentDoc, NoteContentDoc } from "@/types/db/notes";
+import type { UserNoteDoc, UserNoteCommentDoc } from "@/types/db/notes";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import NoteContentsMemo from "./contents";
 import NoteCommentsMemo from "./comments";
-import { EmptyLayout } from "../..";
-import { FlagImg } from "@/components/common";
+import { FlagImg } from "@/components";
+import { EmptyLayout } from "@/layouts/common";
 
 function PageLayoutNote(props: {
-  noteData?: NoteDoc | undefined;
-  noteContents: Array<NoteContentDoc>;
-  noteComments: Array<NoteCommentDoc>;
+  noteData?: UserNoteDoc | undefined;
+  noteComments: Array<UserNoteCommentDoc>;
 }) {
-  const { noteData, noteContents, noteComments } = props;
+  const { noteData, noteComments } = props;
 
   if (!noteData) {
     return (
@@ -33,13 +32,11 @@ function PageLayoutNote(props: {
         <Typography variant="h4" fontWeight={700}>
           {noteData?.title}
         </Typography>
-
         <Typography
-          component="div"
-          display="flex"
-          alignItems="center"
           variant="caption"
           color="grey"
+          display="flex"
+          alignItems="center"
           sx={{ mt: 0.5 }}
         >
           <FlagImg
@@ -53,7 +50,7 @@ function PageLayoutNote(props: {
       <Divider sx={{ my: 1 }} />
 
       {/* note contents */}
-      <NoteContentsMemo {...{ noteData, noteContents }} />
+      <NoteContentsMemo {...{ noteData }} />
       <Divider sx={{ my: 1 }} />
 
       {/* note comments */}

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Suspense } from "react";
 import {
   type LoaderFunction,
@@ -5,29 +6,24 @@ import {
   useLoaderData,
   Await,
 } from "react-router-dom";
-import type { NoteCommentDoc, NoteContentDoc, NoteDoc } from "@/types/db/notes";
-import PageLayoutNote from "@/components/layouts/pages/note";
-import { getAllDocs } from "@/libs/firebase/firestore";
-import { ErrorLayout, LoadingLayout } from "@/components/layouts";
+import type { UserNoteCommentDoc, UserNoteDoc } from "@/types/db/notes";
+import PageLayoutNote from "@/layouts/pages/note";
+import { getAllDocs, getSpecificDoc } from "@/libs/firebase/firestore";
+import { ErrorLayout, LoadingLayout } from "@/layouts/common";
 
 type LoaderData = {
-  res: Promise<[NoteDoc, Array<NoteContentDoc>, Array<NoteCommentDoc>]>;
+  res: Promise<[UserNoteDoc, Array<UserNoteCommentDoc>]>;
 };
 
-/* eslint-disable-next-line react-refresh/only-export-components */
+// /notes/[noteID]?authorUID=[account_uid]
 export const noteLoader: LoaderFunction = async ({ request, params }) => {
   const url = new URL(request.url);
   const authorUID = url.searchParams.get("authorUID");
   const noteID = params.noteID;
 
   const res = Promise.all([
-    getAllDocs<NoteDoc>(`users/${authorUID}/notes`).then((res) =>
-      res.find((note) => note.id === noteID),
-    ),
-    getAllDocs<Array<NoteContentDoc>>(
-      `users/${authorUID}/notes/${noteID}/contents`,
-    ),
-    getAllDocs<Array<NoteCommentDoc>>(
+    getSpecificDoc<UserNoteDoc>(`users/${authorUID}/notes/${noteID}`),
+    getAllDocs<UserNoteCommentDoc>(
       `users/${authorUID}/notes/${noteID}/comments`,
     ),
   ]);
@@ -47,12 +43,8 @@ export default function NoteIndex() {
           <ErrorLayout message={`notes/[id] route data loading error`} />
         }
       >
-        {(res: [NoteDoc, Array<NoteContentDoc>, Array<NoteCommentDoc>]) => (
-          <PageLayoutNote
-            noteData={res[0]}
-            noteContents={res[1]}
-            noteComments={res[2]}
-          />
+        {(res: [UserNoteDoc, Array<UserNoteCommentDoc>]) => (
+          <PageLayoutNote noteData={res[0]} noteComments={res[1]} />
         )}
       </Await>
     </Suspense>

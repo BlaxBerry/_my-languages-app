@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { type User, onAuthStateChanged } from "firebase/auth";
-import { RootLayout } from "@/components/layouts";
+import RootLayout from "@/layouts/rootLayout";
 import { auth } from "@/libs/firebase";
 import { COOKIE_NAMES, getCookie, removeCookie } from "@/utils/tools";
 

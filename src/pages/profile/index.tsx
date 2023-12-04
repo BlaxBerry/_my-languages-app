@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Suspense, useCallback } from "react";
 import {
   redirect,
@@ -10,25 +11,21 @@ import {
 } from "react-router-dom";
 import { signOut, updateProfile, type User } from "firebase/auth";
 import { auth } from "@/libs/firebase";
+import { getAllDocs } from "@/libs/firebase/firestore";
 import {
   getCookie,
   COOKIE_NAMES,
   removeCookie,
   decodeJWT,
 } from "@/utils/tools";
-import {
-  ErrorLayout,
-  LoadingLayout,
-  PageLayoutProfile,
-} from "@/components/layouts";
-import { getAllDocs } from "@/libs/firebase/firestore";
-import type { NoteDoc } from "@/types/db/notes";
+import type { UserNoteDoc } from "@/types/db/notes";
+import { PageLayoutProfile } from "@/layouts/pages";
+import { ErrorLayout, LoadingLayout } from "@/layouts/common";
 
 type LoaderData = {
-  res: Promise<[NoteDoc[], NoteDoc[], NoteDoc[]]>;
+  res: Promise<[Array<UserNoteDoc>]>;
 };
 
-/* eslint-disable-next-line react-refresh/only-export-components */
 export const profileLoader: LoaderFunction = async ({ request }) => {
   const { pathname } = new URL(request.url);
   const accessToken = getCookie(COOKIE_NAMES.ACCESS_TOKEN);
@@ -37,8 +34,7 @@ export const profileLoader: LoaderFunction = async ({ request }) => {
   }
   const jwtDecoded = decodeJWT(accessToken);
   const uid = jwtDecoded.payload.user_id;
-
-  const res = Promise.all([getAllDocs(`users/${uid}/notes`)]);
+  const res = Promise.all([getAllDocs<UserNoteDoc>(`users/${uid}/notes`)]);
   return defer({
     res,
   });
@@ -85,7 +81,7 @@ export default function ProfileIndex() {
           <ErrorLayout message={`profile route data loading error`} />
         }
       >
-        {(res: [Array<NoteDoc>]) => (
+        {(res: [Array<UserNoteDoc>]) => (
           <PageLayoutProfile {...{ user, logout, update }} userNotes={res[0]} />
         )}
       </Await>

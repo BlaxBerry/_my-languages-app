@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import Root from "@/pages/root";
-import Topics, { topicsLoader } from "@/pages/topics";
-import Topic, { topicLoader } from "@/pages/topics/[id]";
 import About from "@/pages/about";
 import Login, { loginLoader } from "@/pages/login";
 import Profile, { profileLoader } from "@/pages/profile";
+import Notes, { notesLoader } from "@/pages/notes";
 import Note, { noteLoader } from "@/pages/notes/[id]";
 import Community from "@/pages/community";
-import CommunityList from "@/pages/community/list";
+import CommunityList, { communityListLoader } from "@/pages/community/list";
 import CommunityLanguage from "@/pages/community/[language]";
 import ErrorRoute from "@/pages/errors/errorRoute";
 import Error404 from "@/pages/errors/404";
@@ -21,8 +20,8 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Topics />,
-        loader: topicsLoader,
+        element: <CommunityList />,
+        loader: communityListLoader,
       },
       {
         path: "about",
@@ -34,18 +33,6 @@ export const router = createBrowserRouter([
         loader: loginLoader,
       },
 
-      // topic
-      {
-        path: "topics",
-        element: <Topics />,
-        loader: topicsLoader,
-      },
-      {
-        path: "topics/:noteID",
-        element: <Topic />,
-        loader: topicLoader,
-      },
-
       // profile
       {
         path: "profile",
@@ -53,7 +40,13 @@ export const router = createBrowserRouter([
         loader: profileLoader,
       },
 
-      // note
+      // notes
+      {
+        path: "notes",
+        element: <Notes />,
+        loader: notesLoader,
+      },
+      // user note
       {
         path: "notes/:noteID",
         element: <Note />,
@@ -68,10 +61,12 @@ export const router = createBrowserRouter([
           {
             index: true,
             element: <CommunityList />,
+            loader: communityListLoader,
           },
           {
             path: "list",
             element: <CommunityList />,
+            loader: communityListLoader,
           },
           {
             path: ":language",

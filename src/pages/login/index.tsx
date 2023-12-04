@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { useCallback, useState } from "react";
 import { redirect, useNavigate, useSearchParams } from "react-router-dom";
 import TextField from "@mui/material/TextField";
@@ -18,7 +19,6 @@ import {
 import { auth } from "@/libs/firebase";
 import { COOKIE_NAMES, getCookie, setCookie } from "@/utils/tools";
 
-/* eslint-disable-next-line react-refresh/only-export-components */
 export async function loginLoader() {
   const accessToken = getCookie(COOKIE_NAMES.ACCESS_TOKEN);
   if (accessToken) return redirect("/");

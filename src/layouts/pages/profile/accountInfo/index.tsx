@@ -6,8 +6,8 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import { ProfileAvatarImg } from "@/components";
 import { getDiffDaysAgo } from "@/utils/helpers";
-import { ProfileAvatarImg } from "@/components/common";
 
 function ProfileAccountInfo(props: {
   user: User | null;

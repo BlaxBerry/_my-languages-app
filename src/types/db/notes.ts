@@ -1,49 +1,44 @@
 import type { Language } from "../client";
 
-/** 文章信息 */
-export type NoteDoc = {
-  /** 文章ID */
+/**
+ * 文章文档
+ * (`firestore: notes/[auto_id]`)
+ */
+export interface NoteDoc extends Record<string, unknown> {
+  /** 文章noteID */
   // 创建日期IOS8601 (dayjs().toISOString())
-  id: string;
-  /** 文章总标题 */
+  noteID: string;
+  /** 文章标题 */
   title: string;
-  /** 文章创建者名称 */
-  // TopicNote作者仅限超级管理员
-  author: string;
   /** 文章相关的语言 */
   language: Language;
+  /** 文章创建者名称 */
+  author: string;
+  /** 文章创建者账户UID */
+  authorUID: string;
   /** 文章创建日期 */
   // IOS8601 (dayjs().toISOString())
-  createAt?: string;
+  createAt: string;
   /** 文章更新日期 */
   // IOS8601 (dayjs().toISOString())
-  updateAt?: string;
-  /** 文章内容列表 */
-  contents: NoteContentDoc[];
-  /** 文章评论列表 */
-  comments: NoteCommentDoc[];
-};
+  updateAt: string;
+}
 
-/** 文章内容 */
-export type NoteContentDoc = {
-  /** 文章内容子标题 */
-  title: string;
-  /** 文章内容段落列表 */
-  sections: NoteContentSection[];
-};
+/**
+ * 用户文章文档
+ * `firestore: users/[UID]/notes/[createAtIOS8601]`
+ */
+export interface UserNoteDoc extends NoteDoc {
+  /** 文章内容 */
+  // markdown
+  md: string;
+}
 
-/** 文章内容段落 */
-export type NoteContentSection = {
-  /** 段落文本 */
-  message: string;
-  /** 段落翻译 (非必需) */
-  translation?: string;
-  /** 段落文本补充 (非必需) */
-  supplement?: string;
-};
-
-/** 文章评论 */
-export type NoteCommentDoc = {
+/**
+ * 用户文章评论
+ * `firestore: users/[UID]/notes/[createAtIOS8601]/comments/[auto_id]`
+ */
+export type UserNoteCommentDoc = {
   /** 文章评论者名称 */
   author: string;
   /** 文章评论者ID */
