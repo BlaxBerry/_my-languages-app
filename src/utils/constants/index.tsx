@@ -2,6 +2,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import CategoryIcon from "@mui/icons-material/Category";
 import InfoIcon from "@mui/icons-material/InfoOutlined";
 import AccountIcon from "@mui/icons-material/AccountCircle";
+import type { Language } from "@/types/client";
 
 export const CLIENT_NAVIGATION = [
   {
@@ -25,6 +26,8 @@ export const CLIENT_NAVIGATION = [
     icon: <InfoIcon fontSize="small" />,
   },
 ];
+
+export const LANGUAGES: Language[] = ["en", "ja", "ko", "fr", "de", "it", "ru"];
 
 export const MARKDOWN_EDITOR_DEFAULT_VALUE = `
 Sample Text Content

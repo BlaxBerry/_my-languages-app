@@ -10,8 +10,8 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import styles from "@/styles/_variables.module.scss";
 import { MARKDOWN_EDITOR_DEFAULT_VALUE } from "@/utils/constants";
 import { auth } from "@/libs/firebase";
-import { addSpecificDoc, updateSpecificDoc } from "@/libs/firebase/firestore";
-import type { NoteDoc, UserNoteDoc } from "@/types/db/notes";
+import { updateSpecificDoc } from "@/libs/firebase/firestore";
+import type { UserNoteDoc } from "@/types/db/notes";
 import { EmptyLayout } from "@/layouts/common";
 
 const MAIN_HEIGHT = styles.root_layout_main_height;
@@ -48,51 +48,21 @@ function NoteContents({ noteData }: { noteData?: UserNoteDoc | undefined }) {
     }
   }, [noteData]);
 
-  const [couldEdit, setCouldEdit] = useState<"ADD" | "UPDATE" | null>(null);
+  const [couldEdit, setCouldEdit] = useState<boolean>(false);
+  // 更新当前文档
   const saveEditorContent = useCallback(async () => {
     try {
       const nowDateISO6801 = dayjs().toISOString();
       if (currentUserUID && currentUserName && currentNoteID && markdownValue) {
-        // 更新当前文档
-        if (couldEdit === "UPDATE") {
-          const data: UserNoteDoc = {
-            ...noteData,
-            updateAt: nowDateISO6801,
-            md: markdownValue,
-          };
-          await updateSpecificDoc(
-            `users/${currentUserUID}/notes/${currentNoteID}`,
-            data,
-          );
-        }
-        // 新增新文档
-        if (couldEdit === "ADD") {
-          const newNoteID = nowDateISO6801;
-          // 向users集合新增的文档 ( users ← )
-          const newNoteData: NoteDoc = {
-            noteID: newNoteID,
-            title: "New Note",
-            language: "en",
-            authorUID: currentUserUID,
-            author: currentUserName,
-            createAt: nowDateISO6801,
-            updateAt: nowDateISO6801,
-          };
-          // 向用户notes集合新增的文档 ( user/[UID]/notes/[noteID] ← )
-          const userNewNoteData: UserNoteDoc = {
-            ...newNoteData,
-            md: markdownValue,
-          };
-          // 1. add → firestore: users/[UID]/notes/[noteID]
-          await updateSpecificDoc(
-            `users/${currentUserUID}/notes/${newNoteID}`,
-            userNewNoteData,
-          );
-          // 2. add → firestore: notes/
-          await addSpecificDoc(`notes`, newNoteData);
-        }
+        const docPath = `users/${currentUserUID}/notes/${currentNoteID}`;
+        const data: UserNoteDoc = {
+          ...noteData,
+          updateAt: nowDateISO6801,
+          md: markdownValue,
+        };
+        await updateSpecificDoc(docPath, data);
       }
-      setCouldEdit(null);
+      setCouldEdit(false);
       window.location.reload();
     } catch (err) {
       /* eslint-disable-next-line no-console */
@@ -104,7 +74,6 @@ function NoteContents({ noteData }: { noteData?: UserNoteDoc | undefined }) {
     currentUserName,
     noteData,
     markdownValue,
-    couldEdit,
     setCouldEdit,
   ]);
 
@@ -127,13 +96,13 @@ function NoteContents({ noteData }: { noteData?: UserNoteDoc | undefined }) {
               <IconButton size="small" onClick={() => saveEditorContent()}>
                 <SaveIcon />
               </IconButton>
-              <IconButton size="small" onClick={() => setCouldEdit(null)}>
+              <IconButton size="small" onClick={() => setCouldEdit(false)}>
                 <CancelIcon />
               </IconButton>
             </>
           )}
           {!couldEdit && (
-            <IconButton size="small" onClick={() => setCouldEdit("UPDATE")}>
+            <IconButton size="small" onClick={() => setCouldEdit(true)}>
               <EditNoteIcon />
             </IconButton>
           )}
@@ -146,7 +115,7 @@ function NoteContents({ noteData }: { noteData?: UserNoteDoc | undefined }) {
       )}
 
       {/* markdown content */}
-      <Box flex={1} display="flex" data-color-mode="light">
+      <Box data-color-mode="light">
         {/* 仅查看 */}
         {(!hasEditPermission || !couldEdit) && (
           <MDEditor.Markdown
@@ -166,7 +135,6 @@ function NoteContents({ noteData }: { noteData?: UserNoteDoc | undefined }) {
             previewOptions={{
               rehypePlugins: [[rehypeSanitize]],
             }}
-            style={{ flex: 1, height: "auto" }}
           />
         )}
       </Box>

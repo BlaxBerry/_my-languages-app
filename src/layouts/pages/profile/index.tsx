@@ -1,5 +1,5 @@
 import { memo, useCallback, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { User } from "firebase/auth";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -15,6 +15,9 @@ import ProfileUpdateDrawer, {
 } from "./updateDrawer";
 import { FlagImg } from "@/components";
 import type { UserNoteDoc } from "@/types/db/notes";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 function PageLayoutProfile(props: {
   user: User | null;
@@ -23,6 +26,7 @@ function PageLayoutProfile(props: {
   update: (params: { displayName: string; photoURL: string }) => void;
 }) {
   const { user, update, userNotes } = props;
+  const navigate = useNavigate();
 
   const refUpdateDrawer = useRef<ProfileUpdateDrawerRef>(null);
   const showUpdateDrawer = useCallback(() => {
@@ -39,29 +43,30 @@ function PageLayoutProfile(props: {
 
       {/* 3. user's something */}
       <Box sx={{ px: 2, py: 4 }}>
-        <Box>
-          <Typography>接触过的语言</Typography>
-          <Grid container spacing={2} sx={{ py: 4 }}>
-            {[1, 2, 3, 4, 5, 6].map((e) => (
-              <Grid item key={e} xs={6} sm={4} md={2} lg={2}>
-                <Card>
-                  <CardActionArea>
-                    <CardContent>xx</CardContent>
-                  </CardActionArea>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-
         {/* user's notes */}
-        {userNotes?.length > 0 && (
-          <Box sx={{ py: 4 }}>
-            <Badge color="secondary" badgeContent={userNotes?.length}>
+        <Box sx={{ py: 4 }}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Badge color="secondary" badgeContent={`${userNotes?.length}`}>
               <Typography sx={{ pr: 1.5 }} fontWeight={700}>
                 个人笔记
               </Typography>
             </Badge>
+            <Box>
+              <IconButton onClick={() => navigate("/notes/create")}>
+                <AddIcon />
+              </IconButton>
+              {userNotes?.length > 0 && (
+                <IconButton onClick={() => navigate("/notes")}>
+                  <MenuBookIcon />
+                </IconButton>
+              )}
+            </Box>
+          </Box>
+          {userNotes?.length > 0 && (
             <Grid container spacing={2} sx={{ pt: 2 }}>
               {userNotes?.map((note) => (
                 <Grid item key={note.noteID} xs={12} sm={6} md={4} lg={4}>
@@ -82,9 +87,23 @@ function PageLayoutProfile(props: {
                 </Grid>
               ))}
             </Grid>
-          </Box>
-        )}
+          )}
+        </Box>
 
+        {/* <Box>
+          <Typography>接触过的语言</Typography>
+          <Grid container spacing={2} sx={{ py: 4 }}>
+            {[1, 2, 3, 4, 5, 6].map((e) => (
+              <Grid item key={e} xs={6} sm={4} md={2} lg={2}>
+                <Card>
+                  <CardActionArea>
+                    <CardContent>xx</CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
         <Box>
           <Typography>学习计划</Typography>
           <Grid container spacing={2} sx={{ py: 4 }}>
@@ -98,7 +117,7 @@ function PageLayoutProfile(props: {
               </Grid>
             ))}
           </Grid>
-        </Box>
+        </Box> */}
       </Box>
 
       <Box display="flex" justifyContent="center">

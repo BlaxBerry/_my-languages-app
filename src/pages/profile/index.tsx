@@ -49,7 +49,7 @@ export default function ProfileIndex() {
     signOut(auth)
       .then(() => {
         removeCookie(COOKIE_NAMES.ACCESS_TOKEN);
-        navigate("/login");
+        navigate("/login", { replace: true });
       })
       .catch((err) => {
         /* eslint-disable-next-line  no-console */

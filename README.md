@@ -28,7 +28,7 @@ Developing...
     |- layouts
         |- common
         |- rootLayout
-        |- pagesLayout
+        |- pages
     |- libs
     |- pages
         |- [...]
@@ -43,19 +43,22 @@ Developing...
         |- hooks
         |- stores
         |- tools
+    |- main.tsx
+    |- vite-env.d.ts
 |- index.html
 |- ...
 ```
 
 ## PathNames & Pages
 
-| pathname                                           | description                                                                                            |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `/about`                                           | About this app                                                                                         |
-| `/login`                                           | Login                                                                                                  |
-| `/login?redirect_from=[pathname]`                  | ( login then navigate to ( go back to ) `redirect_from` )                                              |
-| `/profile`                                         | User Profile                                                                                           |
-| `/topics`                                          | Popular Topics Note List                                                                               |
-| `/topics/[id]`                                     | Specific Topic Note                                                                                    |
-| `/topics/[id]?index=[contentIndex]authorUID=null`  | Specific Topic Note's Specific Content Note ID ( index start from 1, public note has no author's uid ) |
-| `/notes/[id]?index=[contentIndex]&authorUID=[uid]` | Specific User's Specific Note                                                                          |
+| pathname                          | description                                               |
+| --------------------------------- | --------------------------------------------------------- |
+| `/about`                          | About this app                                            |
+| `/login`                          | Login                                                     |
+| `/login?redirect_from=[pathname]` | ( login then navigate to ( go back to ) `redirect_from` ) |
+| `/profile`                        | Current User's Profile                                    |
+| `/notes`                          | Current User's All Notes                                  |
+| `/notes/[noteID]?authorUID=[uid]` | Specific User's Specific Note                             |
+| `/notes/create`                   | Create A New Note                                         |
+| `/community`                      | Community List                                            |
+| `/community/list`                 | Community List                                            |

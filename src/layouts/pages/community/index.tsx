@@ -12,7 +12,7 @@ function PageLayoutCommunity(props: { notes: Array<NoteDoc | UserNoteDoc> }) {
         Community List
       </Typography>
 
-      <Typography variant="body1" fontWeight={700}>
+      <Typography variant="h5" fontWeight={700}>
         Hot Notes
       </Typography>
 

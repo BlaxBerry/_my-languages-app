@@ -12,19 +12,19 @@ export const LanguageToCountry = (language: Language) => {
     case "ja":
       return "japan";
 
-    // case "ko":
-    //   return "south-korea";
+    case "ko":
+      return "south-korea";
 
-    // case "fr":
-    //   return "france";
+    case "fr":
+      return "france";
 
-    // case "de":
-    //   return "germany";
+    case "de":
+      return "germany";
 
     case "it":
       return "italy";
 
-    // case "ru":
-    //   return "russia";
+    case "ru":
+      return "russia";
   }
 };

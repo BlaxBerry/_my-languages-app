@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import NotesCards from "./notesCards";
 import type { NoteDoc, UserNoteDoc } from "@/types/db/notes";
+import { EmptyLayout } from "@/layouts/common";
 
 function PageLayoutNotes(props: { notes: Array<NoteDoc | UserNoteDoc> }) {
   return (
@@ -11,7 +12,16 @@ function PageLayoutNotes(props: { notes: Array<NoteDoc | UserNoteDoc> }) {
         Notes
       </Typography>
 
-      <NotesCards notes={props.notes} />
+      {!props?.notes?.length && (
+        <EmptyLayout
+          content={"暂无您的文章"}
+          redirectButtonMessage="新建文章"
+          redirectPath="/notes/create"
+          redirectReplace={false}
+        />
+      )}
+
+      {props?.notes?.length > 0 && <NotesCards notes={props.notes} />}
     </Box>
   );
 }

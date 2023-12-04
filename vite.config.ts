@@ -7,17 +7,11 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
+    base: `/${env.VITE_APP_GITHUB_REPO}/`,
+
     server: {
       port: 3000,
       strictPort: true,
-      proxy: {
-        // localhost:3000/api -> localhost:8000
-        "/api": {
-          target: env.VITE_DOMAIN_SERVER_DRF,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-        },
-      },
     },
 
     plugins: [
