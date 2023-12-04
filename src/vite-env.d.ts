@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-  // APP
-  readonly VITE_APP_GITHUB_REPO: string;
+  // App
+  readonly VITE_APP_DEV_SERVER: string;
 
   // Firebase
   readonly VITE_API_KEY: string;

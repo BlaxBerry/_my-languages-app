@@ -51,14 +51,14 @@ Developing...
 
 ## PathNames & Pages
 
-| pathname                          | description                                               |
-| --------------------------------- | --------------------------------------------------------- |
-| `/about`                          | About this app                                            |
-| `/login`                          | Login                                                     |
-| `/login?redirect_from=[pathname]` | ( login then navigate to ( go back to ) `redirect_from` ) |
-| `/profile`                        | Current User's Profile                                    |
-| `/notes`                          | Current User's All Notes                                  |
-| `/notes/[noteID]?authorUID=[uid]` | Specific User's Specific Note                             |
-| `/notes/create`                   | Create A New Note                                         |
-| `/community`                      | Community List                                            |
-| `/community/list`                 | Community List                                            |
+| pathname                          | description                                                 |
+| --------------------------------- | ----------------------------------------------------------- |
+| `/about`                          | About this app                                              |
+| `/login`                          | Login                                                       |
+| `/login?redirect_from=[pathname]` | login then navigate ( go back ) to `redirect_from` pathname |
+| `/profile`                        | Current User's Profile                                      |
+| `/notes`                          | Current User's All Notes                                    |
+| `/notes/[noteID]?authorUID=[uid]` | Specific User's Specific Note                               |
+| `/notes/create`                   | Create A New Note                                           |
+| `/community`                      | Community List                                              |
+| `/community/list`                 | Community List                                              |

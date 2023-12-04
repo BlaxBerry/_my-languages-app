@@ -7,10 +7,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-    base: `/${env.VITE_APP_GITHUB_REPO}/`,
-
     server: {
-      port: 3000,
+      port: parseInt(env.VITE_APP_DEV_SERVER),
       strictPort: true,
     },
 
