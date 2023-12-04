@@ -79,7 +79,7 @@ const ABOUT_MESSAGES: Array<{
   answers: string[];
 }> = [
   {
-    question: "What is this ?",
+    question: "What is this App ?",
     answers: [
       "A Languages Study Application. A personal practice.",
       "Could create and share your study note, and also can check notes published by other users.",
@@ -89,8 +89,8 @@ const ABOUT_MESSAGES: Array<{
   {
     question: "About usage?",
     answers: [
-      "1. Browsing as guest, you could check Topics list page, and also can click the note you are interested in to check more details about it.",
-      "2. Create your account with email and password, you could share knowledge in community after login your personal account.",
+      "1. Browsing as guest, you could check community list page, and also can click the note you are interested in to check more details about it.",
+      "2. Create your account with email and password, after login  your personal account, you could share knowledge in community pages.",
     ],
   },
   {
@@ -109,7 +109,7 @@ const ABOUT_MESSAGES: Array<{
   },
   {
     question: "About developer ?",
-    answers: ["Nothing Special."],
+    answers: ["Nick name is BlaxBerry. Nothing Special."],
   },
   {
     question: "About license ?",
