@@ -28,7 +28,8 @@ function NotesCards(props: { notes: Array<NoteDoc | UserNoteDoc> }) {
               <CardMedia
                 component="img"
                 height="100"
-                image="https://img.freepik.com/free-vector/orange-abstract-seamless-patterned-background_53876-118247.jpg?w=900&t=st=1701279139~exp=1701279739~hmac=7dcb345a51972239692a3569130a74be8a931e8a46ee46eb910a4afdfe18b223"
+                image="/static/mock_bg.png"
+                loading="lazy"
                 alt={doc.noteID}
                 sx={{ bgcolor: "grey" }}
               />

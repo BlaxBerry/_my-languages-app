@@ -81,9 +81,8 @@ const ABOUT_MESSAGES: Array<{
   {
     question: "What is this App ?",
     answers: [
-      "A Languages Study Application. A personal practice.",
+      "A personal practice. Languages Study Application.",
       "Could create and share your study note, and also can check notes published by other users.",
-      "Supported PC and mobile device.",
     ],
   },
   {
@@ -91,6 +90,13 @@ const ABOUT_MESSAGES: Array<{
     answers: [
       "1. Browsing as guest, you could check community list page, and also can click the note you are interested in to check more details about it.",
       "2. Create your account with email and password, after login  your personal account, you could share knowledge in community pages.",
+    ],
+  },
+  {
+    question: "Why mobile is not supported ?",
+    answers: [
+      "According to some tech problem, mobile device for example IOS Safari could not access specific database document successfully.",
+      "",
     ],
   },
   {
